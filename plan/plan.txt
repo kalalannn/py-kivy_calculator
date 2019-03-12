@@ -1,0 +1,27 @@
+################################################################
+
+	Plán projektu IVS 2019:
+
+	Tým: 
+		/(o_o)/
+	
+################################################################
+
+Termíny:
+	24.3    Vytvoření kostry programu
+	1.4     Testy, návrh gui, UML
+	14.4    Dokončení back-endu a GUI
+	24.4    Odevzdání
+	
+Rozdělení práce:
+	- Martin Krbila - Testy, Shunting-yard, návrh backendu 
+	- Jirka Hába - Testy, Sémantická analýza
+	- Artsiom Luhin - Testy, Lexikální analýza
+	- Nikolaj Vorobiev - GUI, Intergrace back-endu
+
+Komunikační kanály:
+	Telegram - skupina
+	Email
+	
+git:
+	github: http://github.com/kalalannn/calculator
