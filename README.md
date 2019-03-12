@@ -1,2 +1,2 @@
-# calculator
-Calculator in Python 3.5(tkinter)
+# Calculator
+Calculator in Python 3.5
