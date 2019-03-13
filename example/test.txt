@@ -1,0 +1,14 @@
+>>> from example import Test
+    >>> t=Test()
+        >>> t.x
+        4
+    >>> t=Test(-1)
+        >>> t.x
+        -1
+        >>> t.add_xz(1)
+        3.14
+        >>> t.y
+        "FAIL"
+    >>> t=Test("ahoj")
+        >>> t.x
+        "FAIL2"
