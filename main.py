@@ -2,6 +2,14 @@
     MainApp
     Documentation for kivy: https://kivy.org/doc/stable/api-kivy.html
 """
+
+##  
+#   @file main.py
+#   @author Nikolaj Vorobiev
+#   @date 13.03
+#   @brief MainApplication file
+#   Will be updated 
+
 from kivy.config import Config
 from kivy.app import App
 from kivy.uix.widget import Widget
