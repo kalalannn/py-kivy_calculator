@@ -8,8 +8,8 @@
 ################################################################
 
 Termíny:
-	24.3    Vytvoření kostry programu
-	1.4     Testy, návrh gui, UML
+	24.3    Vytvoření kostry programu, návrh gui, UML
+	1.4     Testy
 	14.4    Dokončení back-endu a GUI
 	24.4    Odevzdání
 	
