@@ -8,16 +8,17 @@
 ################################################################
 
 Termíny:
-	24.3    Vytvoření kostry programu, návrh gui, UML
-	1.4     Testy
-	14.4    Dokončení back-endu a GUI
+	24.3    Vytvoření kostry programu, návrh gui
+	3.4     Testy
+	10.4    Dokončení back-endu, GUI
+	17.4	Instalátor
 	24.4    Odevzdání
 	
 Rozdělení práce:
 	- Martin Krbila - Testy, Shunting-yard, návrh backendu 
-	- Jirka Hába - Testy, Sémantická analýza
+	- Jirka Hába - Testy, Sémantická analýza, instalátor
 	- Artsiom Luhin - Testy, Lexikální analýza
-	- Nikolaj Vorobiev - GUI, Intergrace back-endu
+	- Nikolaj Vorobiev - GUI, Intergrace back-endu, instalátor
 
 Komunikační kanály:
 	Telegram - skupina
