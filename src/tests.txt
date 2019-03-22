@@ -1,0 +1,41 @@
+>>> from parse import *
+>>> #
+>>> # Operations
+>>> #
+	>>> Plus().eval([1.0,2.0])
+	3.0
+	>>> Minus().eval([1.0,2.0])
+	-1.0
+>>> p=Parser()
+	
+>>> #
+>>> # Lexical analysis
+>>> #
+	>>> print(*p.lexer("1+2"))
+	1 + 2
+	>>> print(*p.lexer("2*4"))
+	2 * 4
+
+>>> #
+>>> # Syntax analysis
+>>> #
+	>>> print(*p.shunting_yard([Number(1),Plus(),Number(2)]))
+	1 2 +
+	>>> print(*p.shunting_yard([Number(2),Multiply(),Number(4)]))
+	2 4 *
+
+>>> #
+>>> # Semantic analysis
+>>> #
+	>>> p.postfix_eval([Number(42)])
+	42.0
+	>>> p.postfix_eval([Number(1),Number(2),Plus()])
+	3.0
+
+>>> #
+>>> # Complete parser
+>>> #
+	>>> p.parse("42+0")
+	42.0
+	>>> p.parse("3*6")
+	18.0
