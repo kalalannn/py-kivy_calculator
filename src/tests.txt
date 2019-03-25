@@ -39,3 +39,81 @@
 	42.0
 	>>> p.parse("3*6")
 	18.0
+	>>> p.parse("1+2*3")
+	7.0
+	>>> p.parse("----1-1")
+	0.0
+	>>> p.parse("-(-(-(2)))")
+	-2.0
+	>>> p.parse("")
+	>>> p.parse("fact(5)")
+	120.0
+	>>> p.parse("2^3")
+	8.0
+	>>> p.parse("sqrt(16)")
+	4.0
+	>>> p.parse("nroot(3,8)")
+	2.0
+	>>> p.parse("log(10)")
+	1.0
+	>>> p.parse("(1+2)*3")
+	9.0
+	>>> p.parse("(1+2)*(2+1)")
+	9.0
+	>>> p.parse("1.5+0.5")
+	2.0
+	>>> p.parse("---3.5--5.5")
+	2.0
+	>>> p.parse("-2^3")
+	-8.0
+	>>> p.parse("-(2*(1+2))/-(sqrt(4))")
+	3.0
+	>>> p.parse("-(2*   \n (1+   \t 2))/-(       \nsqrt(4))")
+	3.0
+	>>> p.parse("+-+-+-+-4-+2")
+	2.0
+	>>> p.parse("4+3*2^2")
+	16.0
+	>>> p.parse("2^-1")
+	0.5
+	>>> p.parse("2*10^3")
+	2000.0
+	>>> p.parse("2..0")
+	Traceback (most recent call last):
+	...
+	SyntaxError: '2..0' is not a number
+	>>> p.parse("fake(1,2)")
+	Traceback (most recent call last):
+	...
+	SyntaxError: function 'fake' is not defined
+	>>> p.parse("sqrt(1,2,3)")
+	Traceback (most recent call last):
+	...
+	SyntaxError: leftover parameters
+	>>> p.parse("1:2")
+	Traceback (most recent call last):
+	...
+	SyntaxError: unexpected symbol ':'
+	>>> p.parse("(1+2")
+	Traceback (most recent call last):
+	...
+	SyntaxError: missing right bracket
+	>>> p.parse("1+2)")
+	Traceback (most recent call last):
+	...
+	SyntaxError: missing left bracket
+	>>> p.parse("nroot(1)")
+	Traceback (most recent call last):
+	...
+	SyntaxError: function 'nroot' takes 2 parameters, but only 1 were given
+	>>> p.parse("nroot()")
+	Traceback (most recent call last):
+	...
+	SyntaxError: function 'nroot' takes 2 parameters, but only 0 were given
+	>>> p.parse("1+")
+	Traceback (most recent call last):
+	...
+	SyntaxError: operator '+' takes 2 arguments, but only 1 were given
+	>>> p.parse("+1")
+	1.0
+	
