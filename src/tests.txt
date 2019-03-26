@@ -12,18 +12,122 @@
 >>> # Lexical analysis
 >>> #
 	>>> print(*p.lexer("1+2"))
-	1 + 2
+	1.0 + 2.0
 	>>> print(*p.lexer("2*4"))
-	2 * 4
-
+	2.0 * 4.0
+	>>> print(*p.lexer(""))
+	>>> print(*p.lexer("1"))
+	1.0
+	>>> print(*p.lexer("1.5"))
+	1.5
+	>>> print(*p.lexer("-5"))
+	neg 5.0
+	>>> print(*p.lexer("5--2"))
+	5.0 - neg 2.0
+	>>> print(*p.lexer("-(1)"))
+	neg ( 1.0 )
+	>>> print(*p.lexer("2*10^(4)"))
+	2.0 * 10.0 ^ ( 4.0 )
+	>>> print(*p.lexer("++9"))
+	9.0
+	>>> print(*p.lexer("+-  +9"))
+	neg 9.0
+	>>> print(*p.lexer("-+-+9"))
+	neg neg 9.0
+	>>> print(*p.lexer(" 2/3.5\n*2"))
+	2.0 / 3.5 * 2.0
+	>>> print(*p.lexer("sqrt(-5)"))
+	sqrt ( neg 5.0 )
+	>>> print(*p.lexer("-fact(5)"))
+	neg fact ( 5.0 )
+	>>> print(*p.lexer("nroot(2,16,9,2)"))
+	nroot ( 2.0 , 16.0 , 9.0 , 2.0 )
+	>>> print(*p.lexer("(1+2)  *  (3^2)"))
+	( 1.0 + 2.0 ) * ( 3.0 ^ 2.0 )
+	>>> print(*p.lexer("2(4)"))
+	2.0 * ( 4.0 )
+	>>> print(*p.lexer("(4)2"))
+	( 4.0 ) * 2.0
+	>>> print(*p.lexer("2sqrt(4)"))
+	2.0 * sqrt ( 4.0 )
+	>>> print(*p.lexer("1log(10)2"))
+	1.0 * log ( 10.0 ) * 2.0
+	>>> print(*p.lexer("2fact(18,2)"))
+	2.0 * fact ( 18.0 , 2.0 )
+	>>> print(*p.lexer("2*-3"))
+	2.0 * neg 3.0
+	>>> print(*p.lexer("some_func(1)"))
+	Traceback (most recent call last):
+	...
+	SyntaxError: function 'some_func' is not defined
+	>>> print(*p.lexer("1&2"))
+	Traceback (most recent call last):
+	...
+	SyntaxError: unexpected symbol '&'
+	>>> print(*p.lexer("3.14.15"))
+	Traceback (most recent call last):
+	...
+	SyntaxError: '3.14.15' is not a number
+	>>> print(*p.lexer(".2"))
+	0.2
+	>>> print(*p.lexer("2."))
+	2.0
+	>>> print(*p.lexer("-log()"))
+	neg log ( )
+	>>> print(*p.lexer("sqrt(,1)"))
+	Traceback (most recent call last):
+	...
+	SyntaxError: unexpected symbol ','
+	>>> print(*p.lexer("-"))
+	neg
+	>>> print(*p.lexer("2**2"))
+	Traceback (most recent call last):
+	...
+	SyntaxError: unexpected symbol '*'
+	>>> print(*p.lexer("2*/2"))
+	Traceback (most recent call last):
+	...
+	SyntaxError: unexpected symbol '*'
 >>> #
 >>> # Syntax analysis
 >>> #
-	>>> print(*p.shunting_yard([Number(1),Plus(),Number(2)]))
-	1 2 +
-	>>> print(*p.shunting_yard([Number(2),Multiply(),Number(4)]))
-	2 4 *
-
+	>>> print(*p.shunting_yard([Number(1.0),Plus(),Number(2.0)]))
+	1.0 2.0 +
+	>>> print(*p.shunting_yard([Number(2.0),Multiply(),Number(4.0)]))
+	2.0 4.0 *
+	>>> print(*p.shunting_yard([])
+	>>> print(*p.shunting_yard([LBracket(),Number(1.0),RBracket()])
+	1.0
+	>>> print(*p.shunting_yard([Negate(),Number(4.0)])
+	4.0 neg
+	>>> print(*p.shunting_yard([Square_root(),LBracket(),Number(16.0),RBracket()])
+	16.0 sqrt
+	>>> print(*p.shunting_yard([Factorial(),LBracket(),Number(6.0),RBracket()])
+	6.0 fact
+	>>> print(*p.shunting_yard([Number(1.0),Plus(),Number(2.0),Multiply(),Number(3.0)])
+	1.0 2.0 3.0 * +
+	>>> print(*p.shunting_yard([LBracket(),Number(1.0),Plus(),Number(2.0),RBracket(),Multiply(),Number(3.0)])
+	1.0 2.0 + 3.0 *
+	>>> print(*p.shunting_yard([Negate(),Number(2.0),Divide(),Number(3.0)])
+	2.0 neg / 3.0
+	>>> print(*p.shunting_yard([Nroot(),LBracket(),Number(2.0),Comma(),Number(4.0),RBracket()])
+	2.0 4.0 nroot
+	>>> print(*p.shunting_yard([Square_root(),LBracket(),Number(4.0),RBracket(),Divide(),Number(3.0)])
+	4.0 sqrt 3.0 /
+	>>> print(*p.shunting_yard([Number(1.0),RBracket()])
+	Traceback (most recent call last):
+	...
+	SyntaxError: missing left bracket
+	>>> print(*p.shunting_yard([LBracket(),Number(1)])
+	Traceback (most recent call last):
+	...
+	SyntaxError: missing right bracket
+	>>> print(*p.shunting_yard([LBracket(),Number(1.0),Plus(),Number(4.0),RBracket(),Divide(),LBracket(),Number(8.0),Multiply(),Number(4.0),RBracket()])
+	1.0 4.0 + 8.0 4.0 * /
+	>>> print(*p.shunting_yard([Number(2.0),Power(),Number(3.0),Power(),Number(2.0)])
+	2.0 3.0 2.0 ^ ^
+	>>> print(*p.shunting_yard([Number(3.0),Multiply(),Number(10.0),Power(),LBracket(),Number(3.0),RBracket()])
+	3.0 10.0 3.0 ^ *
 >>> #
 >>> # Semantic analysis
 >>> #
@@ -31,6 +135,8 @@
 	42.0
 	>>> p.postfix_eval([Number(1),Number(2),Plus()])
 	3.0
+	
+
 
 >>> #
 >>> # Complete parser
