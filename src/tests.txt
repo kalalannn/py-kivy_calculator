@@ -6,6 +6,20 @@
 	3.0
 	>>> Minus().eval([1.0,2.0])
 	-1.0
+	>>> Multiply().eval([4.0,3.0])
+	12.0
+	>>> Divide().eval([9.0,3.0])
+	3.0
+	>>> Power().eval([2.0,3.0])
+	8.0
+	>>> Factorial().eval([5.0])
+	120.0
+	>>> Square_root().eval([64.0])
+	8.0
+	>>> Nroot().eval([4.0,16.0])
+	2.0
+	>>> Logarithm().eval([10.0])
+	1.0
 >>> p=Parser()
 	
 >>> #
@@ -95,49 +109,86 @@
 	1.0 2.0 +
 	>>> print(*p.shunting_yard([Number(2.0),Multiply(),Number(4.0)]))
 	2.0 4.0 *
-	>>> print(*p.shunting_yard([])
-	>>> print(*p.shunting_yard([LBracket(),Number(1.0),RBracket()])
+	>>> print(*p.shunting_yard([]))
+	>>> print(*p.shunting_yard([LBracket(),Number(1.0),RBracket()]))
 	1.0
-	>>> print(*p.shunting_yard([Negate(),Number(4.0)])
+	>>> print(*p.shunting_yard([Negate(),Number(4.0)]))
 	4.0 neg
-	>>> print(*p.shunting_yard([Square_root(),LBracket(),Number(16.0),RBracket()])
+	>>> print(*p.shunting_yard([Square_root(),LBracket(),Number(16.0),RBracket()]))
 	16.0 sqrt
-	>>> print(*p.shunting_yard([Factorial(),LBracket(),Number(6.0),RBracket()])
+	>>> print(*p.shunting_yard([Factorial(),LBracket(),Number(6.0),RBracket()]))
 	6.0 fact
-	>>> print(*p.shunting_yard([Number(1.0),Plus(),Number(2.0),Multiply(),Number(3.0)])
+	>>> print(*p.shunting_yard([Number(1.0),Plus(),Number(2.0),Multiply(),Number(3.0)]))
 	1.0 2.0 3.0 * +
-	>>> print(*p.shunting_yard([LBracket(),Number(1.0),Plus(),Number(2.0),RBracket(),Multiply(),Number(3.0)])
+	>>> print(*p.shunting_yard([LBracket(),Number(1.0),Plus(),Number(2.0),RBracket(),Multiply(),Number(3.0)]))
 	1.0 2.0 + 3.0 *
-	>>> print(*p.shunting_yard([Negate(),Number(2.0),Divide(),Number(3.0)])
+	>>> print(*p.shunting_yard([Negate(),Number(2.0),Divide(),Number(3.0)]))
 	2.0 neg / 3.0
-	>>> print(*p.shunting_yard([Nroot(),LBracket(),Number(2.0),Comma(),Number(4.0),RBracket()])
+	>>> print(*p.shunting_yard([Nroot(),LBracket(),Number(2.0),Comma(),Number(4.0),RBracket()]))
 	2.0 4.0 nroot
-	>>> print(*p.shunting_yard([Square_root(),LBracket(),Number(4.0),RBracket(),Divide(),Number(3.0)])
+	>>> print(*p.shunting_yard([Square_root(),LBracket(),Number(4.0),RBracket(),Divide(),Number(3.0)]))
 	4.0 sqrt 3.0 /
-	>>> print(*p.shunting_yard([Number(1.0),RBracket()])
+	>>> print(*p.shunting_yard([Number(1.0),RBracket()]))
 	Traceback (most recent call last):
 	...
 	SyntaxError: missing left bracket
-	>>> print(*p.shunting_yard([LBracket(),Number(1)])
+	>>> print(*p.shunting_yard([LBracket(),Number(1)]))
 	Traceback (most recent call last):
 	...
 	SyntaxError: missing right bracket
-	>>> print(*p.shunting_yard([LBracket(),Number(1.0),Plus(),Number(4.0),RBracket(),Divide(),LBracket(),Number(8.0),Multiply(),Number(4.0),RBracket()])
+	>>> print(*p.shunting_yard([LBracket(),Number(1.0),Plus(),Number(4.0),RBracket(),Divide(),LBracket(),Number(8.0),Multiply(),Number(4.0),RBracket()]))
 	1.0 4.0 + 8.0 4.0 * /
-	>>> print(*p.shunting_yard([Number(2.0),Power(),Number(3.0),Power(),Number(2.0)])
+	>>> print(*p.shunting_yard([Number(2.0),Power(),Number(3.0),Power(),Number(2.0)]))
 	2.0 3.0 2.0 ^ ^
-	>>> print(*p.shunting_yard([Number(3.0),Multiply(),Number(10.0),Power(),LBracket(),Number(3.0),RBracket()])
+	>>> print(*p.shunting_yard([Number(3.0),Multiply(),Number(10.0),Power(),LBracket(),Number(3.0),RBracket()]))
 	3.0 10.0 3.0 ^ *
 >>> #
 >>> # Semantic analysis
 >>> #
-	>>> p.postfix_eval([Number(42)])
+	>>> p.postfix_eval([Number(42.0)])
 	42.0
-	>>> p.postfix_eval([Number(1),Number(2),Plus()])
+	>>> p.postfix_eval([Number(1.0),Number(2.0),Plus()])
 	3.0
-	
-
-
+	>>> p.postfix_eval([Number(3.0),Number(2.0),Multiply()])
+	6.0
+	>>> p.postfix_eval([Number(2.0),Number(3.0),Power()])
+	8.0
+	>>> p.postfix_eval([Number(7.0),Number(2.0),Number(8.0),Multiply(),Plus()])
+	23.0
+	>>> p.postfix_eval([Number(4.0),Number(16.0),Nroot()])
+	2.0
+	>>> p.postfix_eval([Number(1.0),Number(1.0),Number(1.0),Number(1.0),Number(1.0),Plus(),Plus(),Plus(),Plus()])
+	5.0
+	>>> p.postfix_eval([Number(4.0),Negate(),Number(0.5),Divide()])
+	-8.0
+	>>> p.postfix_eval([Number(1.0),Number(2.0),Square_root()])
+	Traceback (most recent call last):
+	...
+	SyntaxError: leftover parameters
+	>>> p.postfix_eval([Number(1.0),Number(1.0),Number(2.0),Multiply()])
+	Traceback (most recent call last):
+	...
+	SyntaxError: leftover parameters
+	>>> p.postfix_eval([Factorial()])
+	Traceback (most recent call last):
+	...
+	SyntaxError: function 'fact' takes 1 parameters, but only 0 were given
+	>>> p.postfix_eval([Number(4.0),Nroot()])
+	Traceback (most recent call last):
+	...
+	SyntaxError: function 'nroot' takes 2 parameters, but only 1 were given
+	>>> p.postfix_eval([Number(4.0),Plus()])
+	Traceback (most recent call last):
+	...
+	SyntaxError: operator '+' takes 2 arguments, but only 1 were given
+	>>> p.postfix_eval([Number(4.0),Divide()])
+	Traceback (most recent call last):
+	...
+	SyntaxError: operator '/' takes 2 arguments, but only 1 were given
+	>>> p.postfix_eval([Number(5.0),Minus()])
+	Traceback (most recent call last):
+	...
+	SyntaxError: operator '-' takes 2 arguments, but only 1 were given
 >>> #
 >>> # Complete parser
 >>> #
