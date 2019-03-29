@@ -1,0 +1,81 @@
+>>> from parse import *
+>>> #
+>>> # Lexical analysis
+>>> #
+	>>> print(*Parser().lexer("1+2"))
+	1.0 + 2.0
+	>>> print(*Parser().lexer("2*4"))
+	2.0 * 4.0
+	>>> print(*Parser().lexer(""))
+	>>> print(*Parser().lexer("1"))
+	1.0
+	>>> print(*Parser().lexer("1.5"))
+	1.5
+	>>> print(*Parser().lexer("-5"))
+	neg 5.0
+	>>> print(*Parser().lexer("5--2"))
+	5.0 - neg 2.0
+	>>> print(*Parser().lexer("-(1)"))
+	neg ( 1.0 )
+	>>> print(*Parser().lexer("2*10^(4)"))
+	2.0 * 10.0 ^ ( 4.0 )
+	>>> print(*Parser().lexer("++9"))
+	9.0
+	>>> print(*Parser().lexer("+-  +9"))
+	neg 9.0
+	>>> print(*Parser().lexer("-+-+9"))
+	neg neg 9.0
+	>>> print(*Parser().lexer(" 2/3.5\n*2"))
+	2.0 / 3.5 * 2.0
+	>>> print(*Parser().lexer("sqrt(-5)"))
+	sqrt ( neg 5.0 )
+	>>> print(*Parser().lexer("-fact(5)"))
+	neg fact ( 5.0 )
+	>>> print(*Parser().lexer("nroot(2,16,9,2)"))
+	nroot ( 2.0 , 16.0 , 9.0 , 2.0 )
+	>>> print(*Parser().lexer("(1+2)  *  (3^2)"))
+	( 1.0 + 2.0 ) * ( 3.0 ^ 2.0 )
+	>>> print(*Parser().lexer("2(4)"))
+	2.0 * ( 4.0 )
+	>>> print(*Parser().lexer("(4)2"))
+	( 4.0 ) * 2.0
+	>>> print(*Parser().lexer("2sqrt(4)"))
+	2.0 * sqrt ( 4.0 )
+	>>> print(*Parser().lexer("1log(10)2"))
+	1.0 * log ( 10.0 ) * 2.0
+	>>> print(*Parser().lexer("2fact(18,2)"))
+	2.0 * fact ( 18.0 , 2.0 )
+	>>> print(*Parser().lexer("2*-3"))
+	2.0 * neg 3.0
+	>>> print(*Parser().lexer("some_func(1)"))
+	Traceback (most recent call last):
+	...
+	SyntaxError: function 'some_func' is not defined
+	>>> print(*Parser().lexer("1&2"))
+	Traceback (most recent call last):
+	...
+	SyntaxError: unexpected symbol '&'
+	>>> print(*Parser().lexer("3.14.15"))
+	Traceback (most recent call last):
+	...
+	SyntaxError: '3.14.15' is not a number
+	>>> print(*Parser().lexer(".2"))
+	0.2
+	>>> print(*Parser().lexer("2."))
+	2.0
+	>>> print(*Parser().lexer("-log()"))
+	neg log ( )
+	>>> print(*Parser().lexer("sqrt(,1)"))
+	Traceback (most recent call last):
+	...
+	SyntaxError: unexpected symbol ','
+	>>> print(*Parser().lexer("-"))
+	neg
+	>>> print(*Parser().lexer("2**2"))
+	Traceback (most recent call last):
+	...
+	SyntaxError: unexpected symbol '*'
+	>>> print(*Parser().lexer("2*/2"))
+	Traceback (most recent call last):
+	...
+	SyntaxError: unexpected symbol '*'

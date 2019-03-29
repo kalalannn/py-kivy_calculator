@@ -1,0 +1,22 @@
+>>> from parse import *
+>>> #
+>>> # Operations
+>>> #
+	>>> Plus().eval([1.0,2.0])
+	3.0
+	>>> Minus().eval([1.0,2.0])
+	-1.0
+	>>> Multiply().eval([4.0,3.0])
+	12.0
+	>>> Divide().eval([9.0,3.0])
+	3.0
+	>>> Power().eval([2.0,3.0])
+	8.0
+	>>> Factorial().eval([5.0])
+	120.0
+	>>> Square_root().eval([64.0])
+	8.0
+	>>> Nroot().eval([4.0,16.0])
+	2.0
+	>>> Logarithm().eval([10.0])
+	1.0

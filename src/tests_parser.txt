@@ -1,0 +1,41 @@
+>>> from parse import *
+>>> #
+>>> # Syntax analysis
+>>> #
+	>>> print(*Parser().shunting_yard([Number(1.0),Plus(),Number(2.0)]))
+	1.0 2.0 +
+	>>> print(*Parser().shunting_yard([Number(2.0),Multiply(),Number(4.0)]))
+	2.0 4.0 *
+	>>> print(*Parser().shunting_yard([]))
+	>>> print(*Parser().shunting_yard([LBracket(),Number(1.0),RBracket()]))
+	1.0
+	>>> print(*Parser().shunting_yard([Negate(),Number(4.0)]))
+	4.0 neg
+	>>> print(*Parser().shunting_yard([Square_root(),LBracket(),Number(16.0),RBracket()]))
+	16.0 sqrt
+	>>> print(*Parser().shunting_yard([Factorial(),LBracket(),Number(6.0),RBracket()]))
+	6.0 fact
+	>>> print(*Parser().shunting_yard([Number(1.0),Plus(),Number(2.0),Multiply(),Number(3.0)]))
+	1.0 2.0 3.0 * +
+	>>> print(*Parser().shunting_yard([LBracket(),Number(1.0),Plus(),Number(2.0),RBracket(),Multiply(),Number(3.0)]))
+	1.0 2.0 + 3.0 *
+	>>> print(*Parser().shunting_yard([Negate(),Number(2.0),Divide(),Number(3.0)]))
+	2.0 neg / 3.0
+	>>> print(*Parser().shunting_yard([Nroot(),LBracket(),Number(2.0),Comma(),Number(4.0),RBracket()]))
+	2.0 4.0 nroot
+	>>> print(*Parser().shunting_yard([Square_root(),LBracket(),Number(4.0),RBracket(),Divide(),Number(3.0)]))
+	4.0 sqrt 3.0 /
+	>>> print(*Parser().shunting_yard([Number(1.0),RBracket()]))
+	Traceback (most recent call last):
+	...
+	SyntaxError: missing left bracket
+	>>> print(*Parser().shunting_yard([LBracket(),Number(1)]))
+	Traceback (most recent call last):
+	...
+	SyntaxError: missing right bracket
+	>>> print(*Parser().shunting_yard([LBracket(),Number(1.0),Plus(),Number(4.0),RBracket(),Divide(),LBracket(),Number(8.0),Multiply(),Number(4.0),RBracket()]))
+	1.0 4.0 + 8.0 4.0 * /
+	>>> print(*Parser().shunting_yard([Number(2.0),Power(),Number(3.0),Power(),Number(2.0)]))
+	2.0 3.0 2.0 ^ ^
+	>>> print(*Parser().shunting_yard([Number(3.0),Multiply(),Number(10.0),Power(),LBracket(),Number(3.0),RBracket()]))
+	3.0 10.0 3.0 ^ *

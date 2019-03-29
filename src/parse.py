@@ -2,9 +2,9 @@
     Projekt IVS 2019
 
     Tým: /(o_o)/
-    
+
     Autoři:
-        - Martin Krbila 
+        - Martin Krbila
 	- Jirka Hába
 	- Artsiom Luhin
 	- Nikolaj Vorobiev
@@ -41,7 +41,7 @@ class Token_type(Enum):
 #   This class represents token in mathematical expression.
 #   Specific tokens inherit this class.
 class Token:
-    
+
     ##
     #   @brief Constructor
     #
@@ -59,21 +59,21 @@ class Token:
 
         ## Defines type of token
         self.t_type=Token_type.ERR
-        
+
     ##
     #   @brief Get type of token
     #
     #   @return Token type
     def get_type(self):
         return self.t_type
-        
+
     ##
     #   @brief Get priority of token
     #
     #   @return Token priority
     def get_priority(self):
         return self.priority
-    
+
     ##
     #   @brief Get associativity of token
     #
@@ -87,14 +87,14 @@ class Token:
     #   @return Parameter count
     def get_param_cnt(self):
         return self.param_no
-    
+
     ##
     #   @brief Convert to string
     #
     #   @return String representation of the token
     def __str__(self):
         return "?"
-    
+
     ##
     #   @brief Evaluate token
     #
@@ -111,43 +111,43 @@ class LBracket(Token):
     def __init__(self):
         super().__init__()
         self.t_type=Token_type.LB
-    
+
     def __str__(self):
         return "("
-    
+
     def eval(self,params):
         return 0
 
 ##
 #   @brief Comma
 #
-#   This class represents separator of function arguments: ','  .     
+#   This class represents separator of function arguments: ','  .
 class Comma(Token):
     def __init__(self):
         super().__init__()
         self.t_type=Token_type.COM
-    
+
     def __str__(self):
         return ","
-    
+
     def eval(self,params):
         return 0
-        
+
 
 ##
 #   @brief Right bracket
 #
-#   This class represents Right bracket of mathematical expression. 
+#   This class represents Right bracket of mathematical expression.
 class RBracket(Token):
     def __init__(self):
         super().__init__()
         self.t_type=Token_type.RB
-    
+
     def __str__(self):
         return ")"
-    
+
     def eval(self,params):
-        return 0      
+        return 0
 
 ##
 #   @brief Unary minus
@@ -162,7 +162,7 @@ class Negate(Token):
 
     def __str__(self):
         return "neg"
-    
+
     def eval(self,params):
         return -(params[0])
 
@@ -175,10 +175,10 @@ class Number(Token):
         super().__init__()
         self.value=value
         self.t_type=Token_type.NUM
-        
+
     def __str__(self):
         return str(self.value)
-    
+
     def eval(self,params):
         return self.value
 
@@ -206,7 +206,7 @@ class Function(Token):
         self.param_no=1
         self.priority=99
         self.t_type=Token_type.FUNC
-        
+
 
 
 class Plus(Bin_op):
@@ -216,10 +216,10 @@ class Plus(Bin_op):
 
     def __str__(self):
         return "+"
-    
+
     def eval(self,params):
         return params[0]+params[1]
-        
+
 class Minus(Bin_op):
     def __init__(self):
         super().__init__()
@@ -227,10 +227,10 @@ class Minus(Bin_op):
 
     def __str__(self):
         return "-"
-    
+
     def eval(self,params):
         return params[0]-params[1]
-        
+
 class Multiply(Bin_op):
     def __init__(self):
         super().__init__()
@@ -238,10 +238,10 @@ class Multiply(Bin_op):
 
     def __str__(self):
         return "*"
-    
+
     def eval(self,params):
         return params[0]*params[1]
-        
+
 class Divide(Bin_op):
     def __init__(self):
         super().__init__()
@@ -249,7 +249,7 @@ class Divide(Bin_op):
 
     def __str__(self):
         return "/"
-    
+
     def eval(self,params):
         return params[0]/params[1]
 
@@ -261,7 +261,7 @@ class Square_root(Function):
 
     def __str__(self):
         return "sqrt"
-    
+
     def eval(self,params):
         return math.sqrt(params[0])
 
@@ -278,7 +278,7 @@ class Parser():
     #   Initializes parser with basic operations
     def __init__(self):
         self.init_basic_ops()
-        
+
     ##
     #   @brief Clear operators
     #
@@ -295,7 +295,7 @@ class Parser():
         self.func_table={
             "sqrt":Square_root()
         }
-    
+
         self.operator_table={
             "+":Plus(),
             "-":Minus(),
@@ -311,7 +311,7 @@ class Parser():
     #   @param op_object Object of class Bin_op representing behavior of this operator
     def add_operator(self,name,op_object):
         self.operator_table[name]=op_object
-    
+
     ##
     #   @brief Add new function
     #
@@ -340,7 +340,7 @@ class Parser():
     def shunting_yard(self,token_ary):
         ret=[Number(1),Number(2),Plus()]
         return ret
-    
+
     ##
     #   @brief Semantic analysis
     #
@@ -367,4 +367,8 @@ class Parser():
 #
 if __name__ == "__main__":
     import doctest
-    doctest.testfile("tests.txt")
+    doctest.testfile("tests_operations.txt")
+    doctest.testfile("tests_lexer.txt")
+    doctest.testfile("tests_parser.txt")
+    doctest.testfile("tests_semantics.txt")
+    doctest.testfile("tests_complete_analysis.txt")

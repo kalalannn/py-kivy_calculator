@@ -1,0 +1,85 @@
+>>> from parse import *
+>>> #
+>>> # Complete parser
+>>> #
+	>>> Parser().parse("42+0")
+	42.0
+	>>> Parser().parse("3*6")
+	18.0
+	>>> Parser().parse("1+2*3")
+	7.0
+	>>> Parser().parse("----1-1")
+	0.0
+	>>> Parser().parse("-(-(-(2)))")
+	-2.0
+	>>> Parser().parse("")
+	>>> Parser().parse("fact(5)")
+	120.0
+	>>> Parser().parse("2^3")
+	8.0
+	>>> Parser().parse("sqrt(16)")
+	4.0
+	>>> Parser().parse("nroot(3,8)")
+	2.0
+	>>> Parser().parse("log(10)")
+	1.0
+	>>> Parser().parse("(1+2)*3")
+	9.0
+	>>> Parser().parse("(1+2)*(2+1)")
+	9.0
+	>>> Parser().parse("1.5+0.5")
+	2.0
+	>>> Parser().parse("---3.5--5.5")
+	2.0
+	>>> Parser().parse("-2^3")
+	-8.0
+	>>> Parser().parse("-(2*(1+2))/-(sqrt(4))")
+	3.0
+	>>> Parser().parse("-(2*   \n (1+   \t 2))/-(       \nsqrt(4))")
+	3.0
+	>>> Parser().parse("+-+-+-+-4-+2")
+	2.0
+	>>> Parser().parse("4+3*2^2")
+	16.0
+	>>> Parser().parse("2^-1")
+	0.5
+	>>> Parser().parse("2*10^3")
+	2000.0
+	>>> Parser().parse("2..0")
+	Traceback (most recent call last):
+	...
+	SyntaxError: '2..0' is not a number
+	>>> Parser().parse("fake(1,2)")
+	Traceback (most recent call last):
+	...
+	SyntaxError: function 'fake' is not defined
+	>>> Parser().parse("sqrt(1,2,3)")
+	Traceback (most recent call last):
+	...
+	SyntaxError: leftover parameters
+	>>> Parser().parse("1:2")
+	Traceback (most recent call last):
+	...
+	SyntaxError: unexpected symbol ':'
+	>>> Parser().parse("(1+2")
+	Traceback (most recent call last):
+	...
+	SyntaxError: missing right bracket
+	>>> Parser().parse("1+2)")
+	Traceback (most recent call last):
+	...
+	SyntaxError: missing left bracket
+	>>> Parser().parse("nroot(1)")
+	Traceback (most recent call last):
+	...
+	SyntaxError: function 'nroot' takes 2 parameters, but only 1 were given
+	>>> Parser().parse("nroot()")
+	Traceback (most recent call last):
+	...
+	SyntaxError: function 'nroot' takes 2 parameters, but only 0 were given
+	>>> Parser().parse("1+")
+	Traceback (most recent call last):
+	...
+	SyntaxError: operator '+' takes 2 arguments, but only 1 were given
+	>>> Parser().parse("+1")
+	1.0
