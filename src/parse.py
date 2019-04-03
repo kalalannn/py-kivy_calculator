@@ -370,5 +370,7 @@ if __name__ == "__main__":
     doctest.testfile("tests_operations.txt")
     doctest.testfile("tests_lexer.txt")
     doctest.testfile("tests_parser.txt")
+    doctest.testfile("tests_parser2.txt")
     doctest.testfile("tests_semantics.txt")
+    doctest.testfile("tests_semantics2.txt")
     doctest.testfile("tests_complete_analysis.txt")

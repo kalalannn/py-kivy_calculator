@@ -2,6 +2,8 @@
 >>> #
 >>> # Semantic analysis
 >>> #
+	>>> Parser().postfix_eval([]) == None
+	True
 	>>> Parser().postfix_eval([Number(42.0)])
 	42.0
 	>>> Parser().postfix_eval([Number(1.0),Number(2.0),Plus()])

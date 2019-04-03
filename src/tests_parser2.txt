@@ -1,0 +1,29 @@
+>>> from parse import *
+>>> #
+>>> # Syntax analysis: Vol. 2
+>>> #
+  >>> Parser().shunting_yard([])
+  []
+  >>> print(*Parser().shunting_yard([Number(12.0)]))
+  12.0
+  >>> print(*Parser().shunting_yard([Number(12.0),Minus(),Number(11.0)]))
+  12.0 11.0 -
+  >>> print(*Parser().shunting_yard([Number(12.0),Plus(),LBracket(),Number(1.0),RBracket()]))
+  12.0 1.0 +
+  >>> print(*Parser().shunting_yard([Negate(),LBracket(),Number(1.0),RBracket()]))
+  1.0 neg
+  >>> print(*Parser().shunting_yard([Square_root(),LBracket(),Number(1.0),Plus(),Number(2.0),RBracket()]))
+  1.0 2.0 + sqrt
+  >>> print(*Parser().shunting_yard([Nroot(),LBracket(),Number(1.0),RBracket()]))
+  1.0 nroot
+  >>> print(*Parser().shunting_yard([Nroot(),LBracket(),Number(1.0),Number(10.0),RBracket()]))
+  Traceback (most recent call last):
+	...
+	SyntaxError: Expected comma ',' or right bracket ')'
+  >>> print(*Parser().shunting_yard([Nroot(),LBracket(),Number(1.0),Comma(),Number(10.0),RBracket()]))
+  1.0 10.0 nroot
+  >>> print(*Parser().shunting_yard([Nroot(),LBracket(),Number(1.0),Comma(),RBracket()]))
+  Traceback (most recent call last):
+	...
+	SyntaxError: Expected number, unary operator or function name
+  
