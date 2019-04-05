@@ -265,6 +265,44 @@ class Square_root(Function):
     def eval(self,params):
         return math.sqrt(params[0])
 
+class Power(Bin_op):
+    def __init__(self):
+        super().__init__()
+        self.priority=3
+        self.l_asoc=False
+
+    def __str__(self):
+        return "^"
+
+    def eval(self,params):
+        return math.pow(params[0],params[1])
+
+class Logarithm(Function):
+    def __init__(self):
+        super().__init__()
+        self.param_no=1
+    def __str__(self):
+        return "log"
+    def eval(self,params):
+        return math.log10(params[0])
+
+class Factorial(Function):
+    def __init__(self):
+        super().__init__()
+        self.param_no=1
+    def __str__(self):
+        return "fact"
+    def eval(self,params):
+        return math.gamma(params[0])*params[0]
+
+class Nroot(Function):
+    def __init__(self):
+        super().__init__()
+        self.param_no=2
+    def __str__(self):
+        return "nroot"
+    def eval(self,params):
+        return pow(params[1],(1.0/params[0]))
 
 ##
 #   @brief Parser
