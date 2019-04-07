@@ -376,27 +376,60 @@ class Parser():
     #   @param token_ary List of Token objects
     #   @return List of tokens in post-fix notation
     def shunting_yard(self,token_ary):
+
+        # Output queue
         ret=[]
+
+        # Operator stack
         stack=[]
+
+        # Loop over all tokens
         for t in token_ary:
+
+            # Numbers:
             if t.get_type()==Token_type.NUM:
+                # Insert numbers to the output queue
                 ret.append(t)
+                
+            # Left brackets:
             elif t.get_type()==Token_type.LB:
-                pass
+                # Insert left brackets to the operator stack
+                stack.append(t)
+
+            # Right brackets    
             elif t.get_type()==Token_type.RB:
+                # TODO
                 pass
+
+            # Comma:
             elif t.get_type()==Token_type.COM:
+                # TODO
                 pass
+
+            # Binary operator
             elif t.get_type()==Token_type.OP:
+                # TODO
                 pass
+
+            # Function
             elif t.get_type()==Token_type.FUNC:
-                pass
+                # Insert functions to the output queue
+                stack.append(t)
+                
+            # Error
             else:
+                # Unkwnon token type, raise exception
                 raise SyntaxError("Uknown token type: "+str(t))
+
+        # Empty leftover tokens from stack
         while stack:
             if stack[-1].get_type()==Token_type.LB:
+                # Left bracket in the stack indicates missing right bracket
                 raise SyntaxError("missing right bracket")
+            
+            # Move all operators to the output queue
             ret.append(stack.pop())
+            
         return ret
 
     ##
