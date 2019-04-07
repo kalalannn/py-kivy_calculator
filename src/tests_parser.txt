@@ -2,6 +2,8 @@
 >>> #
 >>> # Syntax analysis
 >>> #
+	>>> print(*Parser().shunting_yard([Number(5.0)]))
+	5.0
 	>>> print(*Parser().shunting_yard([Number(1.0),Plus(),Number(2.0)]))
 	1.0 2.0 +
 	>>> print(*Parser().shunting_yard([Number(2.0),Multiply(),Number(4.0)]))
