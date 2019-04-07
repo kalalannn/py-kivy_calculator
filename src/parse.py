@@ -393,6 +393,10 @@ class Parser():
                 pass
             else:
                 raise SyntaxError("Uknown token type: "+str(t))
+        while stack:
+            if stack[-1].get_type()==Token_type.LB:
+                raise SyntaxError("missing right bracket")
+            ret.append(stack.pop())
         return ret
 
     ##
