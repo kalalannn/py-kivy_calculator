@@ -396,10 +396,10 @@ class Parser():
                 # Insert left brackets to the operator stack
                 stack.append(t)
 
-            # Right brackets    
+            # Right brackets:    
             elif t.get_type()==Token_type.RB:
                 # Remove operators from stack and insert them to the output queue,
-                # until left bracket is not on the top of operator stack.
+                # until left bracket is found.
                 while stack and stack[-1].get_type()!=Token_type.LB:
                     ret.append(stack.pop())
                 if not stack:
@@ -412,20 +412,25 @@ class Parser():
 
             # Comma:
             elif t.get_type()==Token_type.COM:
-                # TODO
+                # Remove operators from the stack and pass them to the output queue,
+                # until left bracket is found.
+                while stack and stack[-1].get_type()!=Token_type.LB:
+                    ret.append(stack.pop())
+                if not stack:
+                    raise SyntaxError("missing left bracket")
                 pass
 
-            # Binary operator
+            # Binary operator:
             elif t.get_type()==Token_type.OP:
                 # TODO
                 pass
 
-            # Function
+            # Function:
             elif t.get_type()==Token_type.FUNC:
                 # Insert functions to the output queue
                 stack.append(t)
                 
-            # Error
+            # Error:
             else:
                 # Unkwnon token type, raise exception
                 raise SyntaxError("Uknown token type: "+str(t))
