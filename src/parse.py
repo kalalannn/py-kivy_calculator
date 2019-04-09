@@ -398,8 +398,17 @@ class Parser():
 
             # Right brackets    
             elif t.get_type()==Token_type.RB:
-                # TODO
-                pass
+                # Remove operators from stack and insert them to the output queue,
+                # until left bracket is not on the top of operator stack.
+                while stack and stack[-1].get_type()!=Token_type.LB:
+                    ret.append(stack.pop())
+                if not stack:
+                    raise SyntaxError("missing left bracket")
+                # Remove left bracket
+                stack.pop()
+                # Check if brackets follow after function call
+                if stack and stack[-1].get_type()==Token_type.FUNC:
+                    ret.append(stack.pop())
 
             # Comma:
             elif t.get_type()==Token_type.COM:
