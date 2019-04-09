@@ -385,7 +385,7 @@ class Parser():
 
         # Loop over all tokens
         for t in token_ary:
-
+            
             # Numbers:
             if t.get_type()==Token_type.NUM:
                 # Insert numbers to the output queue
@@ -422,8 +422,14 @@ class Parser():
 
             # Binary operator:
             elif t.get_type()==Token_type.OP:
-                # TODO
-                pass
+                while stack and stack[-1].get_type()!=Token_type.LB:
+                    if t.get_asociativity() and t.get_priority()<=stack[-1].get_priority():
+                        ret.append(stack.pop())
+                    elif (not t.get_asociativity()) and t.get_priority()<stack[-1].get_priority(): 
+                        ret.append(stack.pop())
+                    else:
+                        break
+                stack.append(t)
 
             # Function:
             elif t.get_type()==Token_type.FUNC:

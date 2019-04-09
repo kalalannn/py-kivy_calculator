@@ -16,14 +16,4 @@
   1.0 2.0 + sqrt
   >>> print(*Parser().shunting_yard([Nroot(),LBracket(),Number(1.0),RBracket()]))
   1.0 nroot
-  >>> print(*Parser().shunting_yard([Nroot(),LBracket(),Number(1.0),Number(10.0),RBracket()]))
-  Traceback (most recent call last):
-	...
-	SyntaxError: Expected comma ',' or right bracket ')'
-  >>> print(*Parser().shunting_yard([Nroot(),LBracket(),Number(1.0),Comma(),Number(10.0),RBracket()]))
-  1.0 10.0 nroot
-  >>> print(*Parser().shunting_yard([Nroot(),LBracket(),Number(1.0),Comma(),RBracket()]))
-  Traceback (most recent call last):
-	...
-	SyntaxError: Expected number, unary operator or function name
   
