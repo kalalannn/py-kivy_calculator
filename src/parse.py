@@ -375,6 +375,7 @@ class Parser():
     #   Perform syntax analysis using list of tokens.
     #   @param token_ary List of Token objects
     #   @return List of tokens in post-fix notation
+    #   @throws SyntaxError
     def shunting_yard(self,token_ary):
 
         # Output queue
@@ -422,13 +423,17 @@ class Parser():
 
             # Binary operator:
             elif t.get_type()==Token_type.OP:
+                # Remove operators with higher priority from stack and pass them to the output queue
                 while stack and stack[-1].get_type()!=Token_type.LB:
+                    # Operators with left asociativity are removed even if the priority is the same.
                     if t.get_asociativity() and t.get_priority()<=stack[-1].get_priority():
                         ret.append(stack.pop())
                     elif (not t.get_asociativity()) and t.get_priority()<stack[-1].get_priority(): 
                         ret.append(stack.pop())
                     else:
+                        # Break the loop if there are no more operators with higher priority
                         break
+                # Insert current operator to the stack
                 stack.append(t)
 
             # Function:
@@ -450,6 +455,7 @@ class Parser():
             # Move all operators to the output queue
             ret.append(stack.pop())
             
+        # Return token array in postfix notation.
         return ret
 
     ##

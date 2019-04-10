@@ -9,7 +9,7 @@
 	>>> print(*Parser().shunting_yard([Number(2.0),Multiply(),Number(4.0)]))
 	2.0 4.0 *
 	>>> print(*Parser().shunting_yard([]))
-
+	<BLANKLINE>
 	>>> print(*Parser().shunting_yard([LBracket(),Number(1.0),RBracket()]))
 	1.0
 	>>> print(*Parser().shunting_yard([Negate(),Number(4.0)]))
