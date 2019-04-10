@@ -386,7 +386,17 @@ class Parser():
     #   @param post_ary List of tokens in post-fix notation
     #   @return Numerical value of the expression
     def postfix_eval(self,post_ary):
-        return 42.0
+        stack=[]
+        for i in post_ary:
+            if(i.get_type()==Token_type.NUM):
+                stack.append(i)
+            if(i.get_type()==Token_type.OP):
+                pc=i.get_param_cnt()
+                params=[]
+                for y in range(pc):
+                    params.append(stack.pop().eval([]))
+                stack.append(Number(i.eval(params)))
+        return stack.pop().eval([])
 
     ##
     #   @brief Parse expression
