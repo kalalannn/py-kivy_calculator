@@ -2,22 +2,22 @@
 >>> #
 >>> # Semantic analysis: Vol. 2
 >>> #
-	>>> Parser().postfix_eval([]) #returns None
-	>>> Parser().postfix_eval([Number(13)])
-	13.0
-  >>> Parser().postfix_eval([Negate()])
-  Traceback (most recent call last):
-	...
-	SyntaxError: function 'neg' takes 1 parameters, but only 0 were given
-  >>> Parser().postfix_eval([Number(13),Number(0)])
-  Traceback (most recent call last):
-	...
-	SyntaxError: leftover parameters
-  >>> Parser().postfix_eval([Number(4),Factorial()])
-  24.0
-  >>> Parser().postfix_eval([Number(5),Plus()])
-  Traceback (most recent call last):
-	...
-	SyntaxError: operator '+' takes 2 arguments, but only 1 were given
-  >>> Parser().postfix_eval([Number(-5),Negate(),Factorial()])
-  120.0
+    >>> Parser().postfix_eval([]) #returns None
+    >>> Parser().postfix_eval([Number(13.0)])
+    13.0
+    >>> Parser().postfix_eval([Negate()])
+    Traceback (most recent call last):
+    ...
+    SyntaxError: function 'neg' takes 1 parameters, but only 0 were given
+    >>> Parser().postfix_eval([Number(13),Number(0)])
+    Traceback (most recent call last):
+    ...
+    SyntaxError: leftover parameters
+    >>> Parser().postfix_eval([Number(4),Factorial()])
+    24.0
+    >>> Parser().postfix_eval([Number(5),Plus()])
+    Traceback (most recent call last):
+    ...
+    SyntaxError: operator '+' takes 2 arguments, but only 1 were given
+    >>> Parser().postfix_eval([Number(-5),Negate(),Factorial()])
+    120.0
