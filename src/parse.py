@@ -387,15 +387,26 @@ class Parser():
     #   @return Numerical value of the expression
     def postfix_eval(self,post_ary):
         stack=[]
+        if(post_ary==[]):
+            return None
         for i in post_ary:
+            if(i==None):
+                i=Number(None)
             if(i.get_type()==Token_type.NUM):
                 stack.append(i)
-            if(i.get_type()==Token_type.OP):
+            if(i.get_type()==Token_type.OP or i.get_type()==Token_type.FUNC):
                 pc=i.get_param_cnt()
                 params=[]
+                if(pc>len(stack)):
+                    what= "operator" if i.get_type()==Token_type.OP else "function"
+                    what2="arguments" if i.get_type()==Token_type.OP else "parameters"
+                    raise SyntaxError(what+" '"+i.__str__()+"' takes "+str(pc)+" "+what2+", but only "+str(len(stack))+" were given")
                 for y in range(pc):
                     params.append(stack.pop().eval([]))
+                params.reverse()
                 stack.append(Number(i.eval(params)))
+        if(len(stack)>1):
+            raise SyntaxError("leftover parameters")
         return stack.pop().eval([])
 
     ##
