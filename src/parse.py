@@ -208,7 +208,10 @@ class Function(Token):
         self.t_type=Token_type.FUNC
 
 
-
+##
+#   @brief Add
+#
+#   This class represents binary operator "+".
 class Plus(Bin_op):
     def __init__(self):
         super().__init__()
@@ -220,6 +223,10 @@ class Plus(Bin_op):
     def eval(self,params):
         return params[0]+params[1]
 
+##
+#   @brief Subtract
+#
+#   This class represents binary operator "-".
 class Minus(Bin_op):
     def __init__(self):
         super().__init__()
@@ -231,6 +238,10 @@ class Minus(Bin_op):
     def eval(self,params):
         return params[0]-params[1]
 
+##
+#   @brief Multiply
+#
+#   This class represents binary operator "*".
 class Multiply(Bin_op):
     def __init__(self):
         super().__init__()
@@ -242,6 +253,10 @@ class Multiply(Bin_op):
     def eval(self,params):
         return params[0]*params[1]
 
+##
+#   @brief Divide
+#
+#   This class represents binary operator "/".
 class Divide(Bin_op):
     def __init__(self):
         super().__init__()
@@ -254,6 +269,10 @@ class Divide(Bin_op):
         return params[0]/params[1]
 
 
+##
+#   @brief Square root
+#
+#   This class represents function square root.
 class Square_root(Function):
     def __init__(self):
         super().__init__()
@@ -265,6 +284,10 @@ class Square_root(Function):
     def eval(self,params):
         return math.sqrt(params[0])
 
+##
+#   @brief Power
+#
+#   This class represents binary operator "^".
 class Power(Bin_op):
     def __init__(self):
         super().__init__()
@@ -277,6 +300,10 @@ class Power(Bin_op):
     def eval(self,params):
         return math.pow(params[0],params[1])
 
+##
+#   @brief Logarithm
+#
+#   This class represents function logarithm with base 10.
 class Logarithm(Function):
     def __init__(self):
         super().__init__()
@@ -286,6 +313,10 @@ class Logarithm(Function):
     def eval(self,params):
         return math.log10(params[0])
 
+##
+#   @brief Factorial
+#
+#   This class represents function factorial.
 class Factorial(Function):
     def __init__(self):
         super().__init__()
@@ -295,6 +326,10 @@ class Factorial(Function):
     def eval(self,params):
         return math.gamma(params[0])*params[0]
 
+##
+#   @brief Variable root
+#
+#   This class represents root function of variable base.
 class Nroot(Function):
     def __init__(self):
         super().__init__()
@@ -485,9 +520,9 @@ class Parser():
 if __name__ == "__main__":
     import doctest
     doctest.testfile("tests_operations.txt")
-    #doctest.testfile("tests_lexer.txt")
+    doctest.testfile("tests_lexer.txt")
     doctest.testfile("tests_parser.txt")
     doctest.testfile("tests_parser2.txt")
-    #doctest.testfile("tests_semantics.txt")
-    #doctest.testfile("tests_semantics2.txt")
-    #doctest.testfile("tests_complete_analysis.txt")
+    doctest.testfile("tests_semantics.txt")
+    doctest.testfile("tests_semantics2.txt")
+    doctest.testfile("tests_complete_analysis.txt")
