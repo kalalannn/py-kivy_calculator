@@ -16,8 +16,14 @@ from kivy.core.window import Window
 from kivy.uix.boxlayout import BoxLayout
 from kivy.lang.builder import Builder
 from kivy.factory import Factory
+from kivy.clock import Clock
+
+import parse
+import time
 
 import re
+
+chyba = False
 
 KV = '''
 #:kivy 1.8.0
@@ -35,10 +41,13 @@ KV = '''
     halign: 'right'
     valign: 'middle'
 
-<OurButton@Button>:
+<CuButton@Button>:
+    font_size: '20sp'
+
+<OurButton@CuButton>:
     background_color: hex('#026897')
 
-<OurFunctionButton@Button>:
+<OurFunctionButton@OurButton>:
     background_color: hex('#026897')
     on_press: self.parent.parent.parent.operation(' ' + self.text + ' (')
 
@@ -46,7 +55,7 @@ KV = '''
     background_color: hex('#026897')
     on_press: self.parent.parent.parent.operation(self.text)
 
-<OurNumberButton@Button>:
+<OurNumberButton@OurButton>:
     background_color: hex('#cdeffe')
     on_press: self.parent.parent.parent.number(self.text)
 
@@ -66,6 +75,7 @@ MyWidget:
         size_hint: (1, .05)
 
     OurLabel:
+        id: input 
         text: root.display
         size_hint: (1, .2)
         color: 0,0,0
@@ -73,9 +83,9 @@ MyWidget:
             Color: 
                 rgba: hex('#e6f7fe')
             Rectangle:
-                pos: self.pos[0], self.pos[1] + 10
-                size: self.width, self.height - 15
-        font_size: '34sp'
+                pos: self.pos[0], self.pos[1] + 4
+                size: self.width, self.height - 8
+        font_size: '32sp'
 
     BoxLayout:
         orientation: 'horizontal'
@@ -167,6 +177,9 @@ class MyWidget(BoxLayout):
         self._keyboard = None
 
     def _on_keyboard_down(self, keyboard, keycode, text, modifiers):
+        if chyba:
+            self.clear_display()
+
         if re.match(r'(^\d|numpad\d)', keycode[1]):
             self.number(keycode[1][-1])
         elif re.match(r'^[\+\-\*\/\.]', keycode[1]):
@@ -194,7 +207,10 @@ class MyWidget(BoxLayout):
             self.number(', ')
 
     def clear_display(self):
+        global chyba
+        App.get_running_app().root.ids.input.font_size = '32sp'
         self.display = '0';
+        chyba = False
     def clear_symbol(self):
         if len(self.display) == 1:
             self.display = '0'
@@ -202,22 +218,39 @@ class MyWidget(BoxLayout):
             self.display = self.display[:-1]
 
     def operation(self, operation):
+        if chyba:
+            self.clear_display()
         if operation.count('(') != 0 and self.display == '0':
             self.display = ''
         self.display += operation;
 
     def number(self, number):
+        if chyba:
+            self.clear_display()
         if self.display == '0' and number != '.':
             self.display = number;
         else:
             self.display += number;
     def negate(self):
+        if chyba:
+            self.clear_display()
         if self.display[0] == '-':
             self.display = self.display[1:]
         else:
             self.display = '-' + self.display
     def send(self):
-        print (self.display)
+        global chyba
+        try:
+            hovno_vysl =  str(parse.Parser().parse(self.display))
+            if hovno_vysl == '0.0':
+                self.display = '0'
+            else :
+                self.display = hovno_vysl
+        except SyntaxError as err_msg:
+            App.get_running_app().root.ids.input.font_size = '20sp'
+            self.display =str(err_msg)
+            chyba = True
+
 
 """
     Main App class
