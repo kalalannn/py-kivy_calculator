@@ -326,6 +326,15 @@ class Factorial(Function):
     def eval(self,params):
         return math.gamma(params[0])*params[0]
 
+
+class Power_func(Function):
+    def __init__(self):
+        super().__init__()
+        self.param_no=2
+    def __str__(self):
+        return "power"
+    def eval(self,params):
+        return math.pow(params[0],params[1])
 ##
 #   @brief Variable root
 #
