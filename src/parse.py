@@ -366,7 +366,10 @@ class Parser():
     #   Registers basic operators
     def init_basic_ops(self):
         self.func_table={
-            "sqrt":Square_root()
+            "sqrt":Square_root(),
+            "fact":Factorial(),
+            "nroot":Nroot(),
+            "log":Logarithm()
         }
 
         self.operator_table={
@@ -374,6 +377,7 @@ class Parser():
             "-":Minus(),
             "*":Multiply(),
             "/":Divide(),
+            "^":Power()
         }
 
     ##
