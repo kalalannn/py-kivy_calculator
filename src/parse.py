@@ -387,6 +387,8 @@ class Parser():
     #   @param name Text representation of operator used in lexical analysis
     #   @param op_object Object of class Bin_op representing behavior of this operator
     def add_operator(self,name,op_object):
+        if(len(name)>1):
+            raise ValueError("Operators have to be one character long.")
         self.operator_table[name]=op_object
 
     ##
