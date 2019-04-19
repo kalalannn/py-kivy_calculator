@@ -385,7 +385,8 @@ class Parser():
             "sqrt":Square_root(),
             "fact":Factorial(),
             "nroot":Nroot(),
-            "log":Logarithm()
+            "log":Logarithm(),
+            "power":Power_func()
         }
 
         self.operator_table={
