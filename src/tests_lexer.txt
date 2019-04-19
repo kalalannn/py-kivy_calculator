@@ -7,6 +7,7 @@
 	>>> print(*Parser().lexer("2*4"))
 	2.0 * 4.0
 	>>> print(*Parser().lexer(""))
+	<BLANKLINE>
 	>>> print(*Parser().lexer("1"))
 	1.0
 	>>> print(*Parser().lexer("1.5"))
@@ -78,4 +79,4 @@
 	>>> print(*Parser().lexer("2*/2"))
 	Traceback (most recent call last):
 	...
-	SyntaxError: unexpected symbol '*'
+	SyntaxError: unexpected symbol '/'
