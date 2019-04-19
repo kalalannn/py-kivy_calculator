@@ -442,7 +442,7 @@ class Parser():
                         acc = expr[self.ind]
                         state = State.A_FUNC
                     else:
-                        acc=expr[self.ind]
+                        acc = expr[self.ind]
                         state = State.A_BAD
                 elif state == State.A_NEG:
                     #self.ind -= 1
