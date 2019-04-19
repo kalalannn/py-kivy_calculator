@@ -21,6 +21,7 @@
 
 from enum import Enum
 import math
+import re
 
 ##
 #   @brief Enumeration of various token types
@@ -34,6 +35,17 @@ class Token_type(Enum):
     OP=3   # Binary operator
     FUNC=4 # Function
     COM=5  # Comma
+
+class State(Enum):
+    A_START = 0
+    A_NEG = 1
+    A_LBRACK = 2
+    A_RBRACK = 3
+    A_DIG = 4
+    A_DIG_TEMP = 5
+    A_FUNC = 6
+    A_OP = 7
+    A_BAD = 8
 
 ##
 #   @brief Token
@@ -352,6 +364,7 @@ class Parser():
     def __init__(self):
         self.init_basic_ops()
 
+
     ##
     #   @brief Clear operators
     #
@@ -400,9 +413,75 @@ class Parser():
     #   Perform lexical analysis on string and return list of tokens.
     #   @param expr String that contains mathematical expression.
     #   @return List of Token objects
+
     def lexer(self,expr):
-        t_ary=[Number(1),Plus(),Number(2)]
-        return t_ary
+        prev_state = State.A_START
+        self.ind = 0
+        token_arr = []
+        expr = re.sub(r'\s', '', expr)
+        expr += ':'
+
+        def analyze():
+            acc = 0
+            state = State.A_START
+            while (self.ind < len(expr)):
+                if state == State.A_START:
+                    if expr[self.ind] == '-':
+                        state = State.A_NEG
+                    elif expr[self.ind] == '(':
+                        state = State.A_LBRACK
+                    elif expr[self.ind] == ')':
+                        state = State.A_RBRACK
+                    elif expr[self.ind].isdigit() or expr[self.ind]==".":
+                        acc = expr[self.ind]
+                        state = State.A_DIG
+                    elif expr[self.ind] in self.operator_table.keys():
+                        state = State.A_OP
+                        acc = expr[self.ind]
+                    elif expr[self.ind].isalpha(): 
+                        acc = expr[self.ind]
+                        state = State.A_FUNC
+                    else:
+                        acc=expr[self.ind]
+                        state = State.A_BAD
+                elif state == State.A_NEG:
+                    #self.ind -= 1
+                    return Negate()
+                elif state == State.A_LBRACK:
+                    #self.ind -= 1
+                    return LBracket()
+                elif state == State.A_RBRACK:
+                    #self.ind -= 1
+                    return RBracket()
+                elif state == State.A_DIG:
+                    if (expr[self.ind].isdigit() or expr[self.ind]=="."):
+                        acc += expr[self.ind]
+                    else:
+                        #self.ind -= 1
+                        try:
+                            acc=float(acc)
+                        except:
+                            raise SyntaxError("'"+acc+"' is not a number")
+                        return Number(acc)
+                elif state == State.A_BAD:
+                    raise SyntaxError("unexpected symbol '"+acc+"'")
+                elif state == State.A_OP:
+                    return self.operator_table[acc]
+                elif state == State.A_FUNC:
+                    if (expr[self.ind].isalpha() or expr[self.ind]=="_" or expr[self.ind].isdigit()):
+                        acc += expr[self.ind]
+                    else:
+                        if acc in self.func_table.keys():
+                            #self.ind -= 1
+                            return self.func_table[acc]
+                        else:
+                            raise SyntaxError("function '" + acc + "' is not defined")
+                self.ind += 1
+
+        while (self.ind < len(expr) - 1):
+            token_arr.append(analyze()) 
+
+        return token_arr
 
     ##
     #   @brief Syntax analysis
@@ -540,10 +619,10 @@ class Parser():
 #
 if __name__ == "__main__":
     import doctest
-    doctest.testfile("tests_operations.txt")
+    # doctest.testfile("tests_operations.txt")
     doctest.testfile("tests_lexer.txt")
     doctest.testfile("tests_parser.txt")
     doctest.testfile("tests_parser2.txt")
     doctest.testfile("tests_semantics.txt")
     doctest.testfile("tests_semantics2.txt")
-    doctest.testfile("tests_complete_analysis.txt")
+    # doctest.testfile("tests_complete_analysis.txt")
