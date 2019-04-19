@@ -17,6 +17,7 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.textinput import TextInput
+from kivy.uix.label import Label
 
 #! Window.width = 500
 Config.set('graphics', 'width', '500')
@@ -37,10 +38,10 @@ class OurSpecialButton(Button):
 """
     
 """
-class InputWidget(TextInput):
+class IOWidget(Label):
     def __init__(self, **kwargs):
-        super(InputWidget, self).__init__(**kwargs)
-
+        super(IOWidget, self).__init__(**kwargs)
+        self.text = '0';
 
 """
 """
@@ -94,7 +95,7 @@ class RootWidget(BoxLayout):
     def __init__(self, **kwargs):
         super(RootWidget, self).__init__(**kwargs)
         self.add_widget(MenuWidget(size_hint=(1, .2)))
-        self.add_widget(InputWidget(size_hint=(1, .2)))
+        self.add_widget(IOWidget(size_hint=(1, .2)))
         self.add_widget(HistoryAndButtons())
 
 """
