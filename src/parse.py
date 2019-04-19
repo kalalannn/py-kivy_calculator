@@ -338,6 +338,15 @@ class Factorial(Function):
     def eval(self,params):
         return math.gamma(params[0])*params[0]
 
+
+class Power_func(Function):
+    def __init__(self):
+        super().__init__()
+        self.param_no=2
+    def __str__(self):
+        return "power"
+    def eval(self,params):
+        return math.pow(params[0],params[1])
 ##
 #   @brief Variable root
 #
@@ -361,6 +370,7 @@ class Parser():
     #   @brief Constructor
     #
     #   Initializes parser with basic operations
+    #   @post Parser is now initialized with operations: "+ - * / ^ log fact nroot sqrt"
     def __init__(self):
         self.init_basic_ops()
 
@@ -369,17 +379,27 @@ class Parser():
     #   @brief Clear operators
     #
     #   Removes all operators registered in parser
+    #   @post operator_table and func_table are now empty.
     def clear_ops(self):
+
+        ## Table of recognized functions
         self.func_table={}
+
+        ## Table of recognized operators
         self.operator_table={}
 
     ##
     #   @brief Initialize operators
     #
     #   Registers basic operators
+    #   @post Parser is now initialized with operations: "+ - * / ^ log fact nroot sqrt"
     def init_basic_ops(self):
         self.func_table={
-            "sqrt":Square_root()
+            "sqrt":Square_root(),
+            "fact":Factorial(),
+            "nroot":Nroot(),
+            "log":Logarithm(),
+            "power":Power_func()
         }
 
         self.operator_table={
@@ -387,15 +407,19 @@ class Parser():
             "-":Minus(),
             "*":Multiply(),
             "/":Divide(),
+            "^":Power()
         }
 
     ##
     #   @brief Add new operator
     #
-    #   Insert new operator.
+    #   Insert new operator. Operators have  to be one character long.
+    #   @post Operator of given name is registered in operator_table.
     #   @param name Text representation of operator used in lexical analysis
     #   @param op_object Object of class Bin_op representing behavior of this operator
     def add_operator(self,name,op_object):
+        if(len(name)!=1):
+            raise ValueError("Operators have to be one character long.")
         self.operator_table[name]=op_object
 
     ##
