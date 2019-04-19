@@ -46,6 +46,7 @@ class State(Enum):
     A_FUNC = 6
     A_OP = 7
     A_BAD = 8
+    A_COMMA = 9
 
 ##
 #   @brief Token
@@ -439,7 +440,7 @@ class Parser():
     #   @return List of Token objects
 
     def lexer(self,expr):
-        prev_state = State.A_START
+        self.prev_state = State.A_START
         self.ind = 0
         token_arr = []
         expr = re.sub(r'\s', '', expr)
@@ -447,11 +448,18 @@ class Parser():
 
         def analyze():
             acc = 0
+            not_neg=[State.A_DIG,State.A_RBRACK]
+            not_comma=[State.A_START,State.A_LBRACK,State.A_FUNC,State.A_OP,State.A_COMMA]
+            pos_lbr=[State.A_DIG,State.A_RBRACK]
+            pos_func=[State.A_RBRACK,State.A_DIG]
             state = State.A_START
             while (self.ind < len(expr)):
                 if state == State.A_START:
                     if expr[self.ind] == '-':
                         state = State.A_NEG
+                        if self.prev_state in not_neg:
+                            state=State.A_OP
+                            acc=expr[self.ind]
                     elif expr[self.ind] == '(':
                         state = State.A_LBRACK
                     elif expr[self.ind] == ')':
@@ -459,6 +467,10 @@ class Parser():
                     elif expr[self.ind].isdigit() or expr[self.ind]==".":
                         acc = expr[self.ind]
                         state = State.A_DIG
+                    elif expr[self.ind]==",":
+                        state = State.A_COMMA
+                        if self.prev_state in not_comma:
+                            raise SyntaxError("unexpected symbol ','")
                     elif expr[self.ind] in self.operator_table.keys():
                         state = State.A_OP
                         acc = expr[self.ind]
@@ -470,12 +482,18 @@ class Parser():
                         state = State.A_BAD
                 elif state == State.A_NEG:
                     #self.ind -= 1
+                    self.prev_state = state
                     return Negate()
                 elif state == State.A_LBRACK:
                     #self.ind -= 1
+                    if self.prev_state in pos_lbr:
+                        self.prev_state = state
+                        return (Multiply(),LBracket())
+                    self.prev_state = state
                     return LBracket()
                 elif state == State.A_RBRACK:
                     #self.ind -= 1
+                    self.prev_state = state
                     return RBracket()
                 elif state == State.A_DIG:
                     if (expr[self.ind].isdigit() or expr[self.ind]=="."):
@@ -486,25 +504,51 @@ class Parser():
                             acc=float(acc)
                         except:
                             raise SyntaxError("'"+acc+"' is not a number")
+                        if self.prev_state == State.A_RBRACK:
+                            self.prev_state=state
+                            return(Multiply(),Number(acc))
+                        self.prev_state = state
                         return Number(acc)
+                elif state == State.A_COMMA:
+                    self.prev_state = state
+                    return Comma()
                 elif state == State.A_BAD:
                     raise SyntaxError("unexpected symbol '"+acc+"'")
                 elif state == State.A_OP:
+                    if acc=='+':
+                        if self.prev_state in not_neg:
+                            self.prev_state=state
+                            return self.operator_table[acc]
+                        return None
+                    
+                    if self.prev_state==State.A_OP:
+                        raise SyntaxError("unexpected symbol '"+acc+"'")
+                    self.prev_state = state
                     return self.operator_table[acc]
+
                 elif state == State.A_FUNC:
                     if (expr[self.ind].isalpha() or expr[self.ind]=="_" or expr[self.ind].isdigit()):
                         acc += expr[self.ind]
                     else:
                         if acc in self.func_table.keys():
                             #self.ind -= 1
+                            if self.prev_state in pos_func:
+                                self.prev_state=state
+                                return(Multiply(),self.func_table[acc])
+                            self.prev_state = state
                             return self.func_table[acc]
                         else:
                             raise SyntaxError("function '" + acc + "' is not defined")
                 self.ind += 1
 
         while (self.ind < len(expr) - 1):
-            token_arr.append(analyze()) 
-
+            token_arr.append(analyze())
+            if(type(token_arr[-1])==type(())):
+                tok=token_arr.pop()
+                token_arr.append(tok[0])
+                token_arr.append(tok[1])
+            if(token_arr[-1]==None):
+                token_arr.pop()
         return token_arr
 
     ##
@@ -643,10 +687,10 @@ class Parser():
 #
 if __name__ == "__main__":
     import doctest
-    # doctest.testfile("tests_operations.txt")
+    doctest.testfile("tests_operations.txt")
     doctest.testfile("tests_lexer.txt")
     doctest.testfile("tests_parser.txt")
     doctest.testfile("tests_parser2.txt")
     doctest.testfile("tests_semantics.txt")
     doctest.testfile("tests_semantics2.txt")
-    # doctest.testfile("tests_complete_analysis.txt")
+    doctest.testfile("tests_complete_analysis.txt")
