@@ -34,6 +34,8 @@ other tokens:
 """
 
 top = Tk()
+top.title("Calculator")
+top.iconbitmap('icon.ico')
 
 m=0
 show_err=False
