@@ -1,0 +1,4 @@
+xkrbil00 100 (testy, syntaktická analýza, port GUI pro Win, instalátor)
+xhabaj00 100 (testy, sémantická analýza, dokumentace)
+xluhin00 100 (lexikální analýza)
+xvorob00 100 (návrh a implementace GUI)
