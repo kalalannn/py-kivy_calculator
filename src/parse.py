@@ -362,6 +362,19 @@ class Nroot(Function):
         return pow(params[1],(1.0/params[0]))
 
 ##
+#   @brief Natural logarithm
+#
+#   This class represents function of natural logarithm .
+class Ln(Function):
+    def __init__(self):
+        super().__init__()
+        self.param_no=1
+    def __str__(self):
+        return "ln"
+    def eval(self,params):
+        return math.log(params[0])
+
+##
 #   @brief Parser
 #
 #   Parser of mathematical expressions in form of strings
@@ -400,7 +413,8 @@ class Parser():
             "fact":Factorial(),
             "nroot":Nroot(),
             "log":Logarithm(),
-            "power":Power_func()
+            "power":Power_func(),
+            "ln":Ln()
         }
 
         self.operator_table={
