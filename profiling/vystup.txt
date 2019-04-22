@@ -1,0 +1,32 @@
+Profiling
+3.0276503540974917
+0.01user 0.03system 0:00.05elapsed 90%CPU (0avgtext+0avgdata 6572maxresident)k
+0inputs+0outputs (0major+1704minor)pagefaults 0swaps
+
+29.01149197588202
+0.03user 0.01system 0:00.05elapsed 82%CPU (0avgtext+0avgdata 6588maxresident)k
+0inputs+0outputs (0major+1704minor)pagefaults 0swaps
+
+288.8194360957494
+0.00user 0.04system 0:00.06elapsed 67%CPU (0avgtext+0avgdata 6612maxresident)k
+0inputs+0outputs (0major+1715minor)pagefaults 0swaps
+
+2886.8956799071675
+0.01user 0.04system 0:00.07elapsed 87%CPU (0avgtext+0avgdata 6776maxresident)k
+0inputs+0outputs (0major+1758minor)pagefaults 0swaps
+
+28867.657796687727
+0.14user 0.03system 0:00.19elapsed 88%CPU (0avgtext+0avgdata 6744maxresident)k
+0inputs+0outputs (0major+1756minor)pagefaults 0swaps
+
+288675.278931699
+1.43user 0.03system 0:01.47elapsed 99%CPU (0avgtext+0avgdata 6748maxresident)k
+0inputs+0outputs (0major+1757minor)pagefaults 0swaps
+
+2886751.4902923102
+14.04user 0.07system 0:14.22elapsed 99%CPU (0avgtext+0avgdata 6744maxresident)k
+0inputs+0outputs (0major+1756minor)pagefaults 0swaps
+
+28867513.603841346
+143.21user 0.87system 2:25.01elapsed 99%CPU (0avgtext+0avgdata 6752maxresident)k
+0inputs+0outputs (0major+1758minor)pagefaults 0swaps
