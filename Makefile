@@ -8,6 +8,7 @@ pack: clean
 	(cd odevzdani && mkdir repo)
 	(cd odevzdani && mkdir doc)
 	(cd odevzdani && mkdir install)
+	(robocopy .git odevzdani/repo/.git) ^& exit 0
 	(robocopy mockup odevzdani/repo/mockup) ^& exit 0
 	(robocopy plan odevzdani/repo/plan) ^& exit 0
 	(robocopy profiling odevzdani/repo/profiling) ^& exit 0
@@ -37,6 +38,6 @@ doc:
 	(cd src && doxygen)
 	mv src/html doc
 help:
-	echo Je potreba mit nainstalovany interpret pythonu 3
+	echo Je potreba mit nainstalovany interpret pythonu 3, pristupny pod jmenem "python".
 test:
 	( cd src && echo Neuspesne testy: && parse.py )
