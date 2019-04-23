@@ -1,8 +1,8 @@
-INTERPRET=python
-.PHONY=all pack run
+PYTHON=python
+.PHONY=all pack run pack profile doc help test
 
 all:
-	( cd src && Calculator_tk.pyw )
+	( cd src && $(PYTHON) Calculator_tk.pyw )
 pack: clean
 	mkdir odevzdani
 	(cd odevzdani && mkdir repo)
@@ -23,7 +23,7 @@ pack: clean
 run: all
 
 profile:
-	(cd src && echo 1 2 3 4 5 | profiling.py)
+	(cd src && echo 1 2 3 4 5 | $(PYTHON) profiling.py)
 clean:
 	type nul >> src/cprof
 	(cd src && del cprof *.spec)

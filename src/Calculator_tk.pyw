@@ -19,12 +19,14 @@
 
 #!/usr/bin/python3
 
+##@cond
 from tkinter import *
 from tkinter import messagebox,ttk
 
 import parse
 import re
 import sys
+##@endcond
 
 ## Help displayed to user
 help_string="""
