@@ -1,4 +1,5 @@
-Profiling
+
+Profiling -Python
 3.0276503540974917
 0.01user 0.03system 0:00.05elapsed 90%CPU (0avgtext+0avgdata 6572maxresident)k
 0inputs+0outputs (0major+1704minor)pagefaults 0swaps
@@ -30,3 +31,37 @@ Profiling
 28867513.603841346
 143.21user 0.87system 2:25.01elapsed 99%CPU (0avgtext+0avgdata 6752maxresident)k
 0inputs+0outputs (0major+1758minor)pagefaults 0swaps
+
+Profiling -C
+3.027650
+0.00user 0.01system 0:00.00elapsed 187%CPU (0avgtext+0avgdata 680maxresident)k
+0inputs+0outputs (0major+205minor)pagefaults 0swaps
+
+29.011492
+0.00user 0.00system 0:00.00elapsed 0%CPU (0avgtext+0avgdata 688maxresident)k
+0inputs+0outputs (0major+209minor)pagefaults 0swaps
+
+288.819436
+0.00user 0.00system 0:00.01elapsed 0%CPU (0avgtext+0avgdata 692maxresident)k
+0inputs+0outputs (0major+211minor)pagefaults 0swaps
+
+2886.895680
+0.01user 0.00system 0:00.01elapsed 136%CPU (0avgtext+0avgdata 692maxresident)k
+0inputs+0outputs (0major+211minor)pagefaults 0swaps
+
+28867.657797
+0.01user 0.00system 0:00.02elapsed 60%CPU (0avgtext+0avgdata 696maxresident)k
+0inputs+0outputs (0major+212minor)pagefaults 0swaps
+
+288675.278932
+0.12user 0.00system 0:00.13elapsed 93%CPU (0avgtext+0avgdata 692maxresident)k
+0inputs+0outputs (0major+211minor)pagefaults 0swaps
+
+2886751.490292
+1.35user 0.03system 0:01.39elapsed 99%CPU (0avgtext+0avgdata 692maxresident)k
+0inputs+0outputs (0major+211minor)pagefaults 0swaps
+
+28867513.603841
+13.31user 0.96system 0:14.28elapsed 100%CPU (0avgtext+0avgdata 692maxresident)k
+0inputs+0outputs (0major+209minor)pagefaults 0swaps
+
