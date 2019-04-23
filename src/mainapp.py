@@ -1,7 +1,12 @@
-"""
-    MainApp
-    Documentation for kivy: https://kivy.org/doc/stable/api-kivy.html
-"""
+#    Projekt IVS 2019
+#
+#    Tým: /(o_o)/
+#
+#    Autoři:
+#       - Martin Krbila
+#	- Jirka Hába
+#	- Artsiom Luhin
+#	- Nikolaj Vorobiev
 
 ##  
 #   @file main.py

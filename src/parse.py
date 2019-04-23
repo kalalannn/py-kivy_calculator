@@ -1,14 +1,12 @@
-"""
-    Projekt IVS 2019
-
-    Tým: /(o_o)/
-
-    Autoři:
-        - Martin Krbila
-	- Jirka Hába
-	- Artsiom Luhin
-	- Nikolaj Vorobiev
-"""
+#    Projekt IVS 2019
+#
+#    Tým: /(o_o)/
+#
+#    Autoři:
+#       - Martin Krbila
+#	- Jirka Hába
+#	- Artsiom Luhin
+#	- Nikolaj Vorobiev
 
 ##
 #   @file parse.py

@@ -1,0 +1,35 @@
+Pùvodní plán:
+	24.3    Vytvoøení kostry programu, návrh gui
+	3.4     Testy
+	10.4    Dokonèení back-endu, GUI
+	17.4	Instalátor
+	24.4    Odevzdání
+
+Skuteèný prùbìh:
+	22.3    Vytvoøení kostry programu, návrh gui
+	3.4     Testy
+	19.4    Dokonèení back-endu, GUI
+	22.4	Instalátor
+	24.4    Odevzdání
+
+Pùvodní rozdìlení práce:
+	- Martin Krbila - Testy, Shunting-yard, návrh backendu 
+	- Jirka Hába - Testy, Sémantická analýza, instalátor
+	- Artsiom Luhin - Testy, Lexikální analýza
+	- Nikolaj Vorobiev - GUI, Intergrace back-endu, instalátor
+
+Skuteèné rozdìlení práce:
+	- Martin Krbila - Testy, Shunting-yard, návrh backendu, instalátor 
+	- Jirka Hába - Testy, Sémantická analýza, dokumentace
+	- Artsiom Luhin - Lexikální analýza
+	- Nikolaj Vorobiev - GUI, Intergrace back-endu
+
+Pùvodnì stanovené komunikaèní metody:
+	Email
+    Telegram
+
+Skuteènì použité komunikaèní metody:
+	Email - prvotní komunikace, domluva první schùzky
+    Telegram - øešení dílèích a organizaèních problémù
+    Osobní schùzky
+    
